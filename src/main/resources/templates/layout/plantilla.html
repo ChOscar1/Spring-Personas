@@ -6,10 +6,15 @@
 </head>
 <body>
     <header th:fragment="header">
-        <h1>Control de Clientes</h1>
+        <h1 th:text="#{plantilla.titulo}">Titulo</h1>
     </header>
     <footer th:fragment="footer">
-        <p>Derechos Reservados <a href="https://github.com/ChOscar1/Spring-Personas" target="_blank">Oscar GitHub</a></p>
+        <div>
+            <br/>
+            <a th:href="@{/(lang=es)}">ES</a> |
+            <a th:href="@{/(lang=en)}">EN</a> |
+            <span th:utext="#{plantilla.pie-pagina}"></span>
+        </div>
     </footer>
 </body>
 </html>
