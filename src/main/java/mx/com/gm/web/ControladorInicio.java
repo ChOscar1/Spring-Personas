@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import mx.com.gm.domain.Persona;
 import mx.com.gm.servicio.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -20,9 +22,10 @@ public class ControladorInicio {
     private PersonaService personaService;
 
     @GetMapping("/") // Una peticion get http
-    public String inicio(Model model){ //con la clase model agregamos la informacion que queremos compartir con la vista
+    public String inicio(Model model, @AuthenticationPrincipal User user){ //con la clase model agregamos la informacion que queremos compartir con la vista
         Iterable<Persona> personas = personaService.listarPersonas();
         log.info("Ejecutando el controlador Spring MVC");
+        log.info("usuario que hizo loggin: " + user);
         model.addAttribute("personas", personas);
         return "index"; //Thymeleaf usa archivos con extension .html por default
     }
@@ -53,5 +56,6 @@ public class ControladorInicio {
         personaService.eliminar(idPersona);
         return "redirect:/";
     }
+
 
 }
